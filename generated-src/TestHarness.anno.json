@@ -482,7 +482,7 @@
     "target":"TestHarness.DCache.tag_array",
     "address_width":6,
     "name":"tag_array",
-    "data_width":88,
+    "data_width":22,
     "depth":64,
     "description":"DCache Tag Array",
     "write_mask_granularity":22
@@ -492,7 +492,7 @@
     "target":"TestHarness.DCacheDataArray.data_arrays_0",
     "address_width":9,
     "name":"data_arrays_0",
-    "data_width":256,
+    "data_width":64,
     "depth":512,
     "description":"DCache Data Array",
     "write_mask_granularity":8
@@ -518,7 +518,7 @@
     "target":"TestHarness.ICache.tag_array",
     "address_width":6,
     "name":"tag_array",
-    "data_width":84,
+    "data_width":21,
     "depth":64,
     "description":"ICache Tag Array",
     "write_mask_granularity":21
@@ -528,7 +528,7 @@
     "target":"TestHarness.ICache.data_arrays_0",
     "address_width":9,
     "name":"data_arrays_0",
-    "data_width":128,
+    "data_width":32,
     "depth":512,
     "description":"ICache Data Array",
     "write_mask_granularity":32
@@ -538,39 +538,10 @@
     "target":"TestHarness.ICache.data_arrays_1",
     "address_width":9,
     "name":"data_arrays_1",
-    "data_width":128,
+    "data_width":32,
     "depth":512,
     "description":"ICache Data Array",
     "write_mask_granularity":32
-  },
-  {
-    "class":"freechips.rocketchip.util.ParamsAnnotation",
-    "target":"TestHarness.BTB",
-    "paramsClassName":"freechips.rocketchip.rocket.BTBParams",
-    "params":{
-      "nPages":6,
-      "nMatchBits":14,
-      "nEntries":28,
-      "bhtParams":{
-        "nEntries":512,
-        "counterLength":1,
-        "historyLength":8,
-        "historyBits":3
-      },
-      "nRAS":6,
-      "updatesOutOfOrder":false
-    }
-  },
-  {
-    "class":"freechips.rocketchip.util.ParamsAnnotation",
-    "target":"TestHarness.BTB",
-    "paramsClassName":"freechips.rocketchip.rocket.BHTParams",
-    "params":{
-      "nEntries":512,
-      "counterLength":1,
-      "historyLength":8,
-      "historyBits":3
-    }
   },
   {
     "class":"firrtl.passes.InlineAnnotation",
@@ -619,52 +590,19 @@
     ]
   },
   {
-    "class":"freechips.rocketchip.util.RetimeModuleAnnotation",
-    "target":"TestHarness.FPUFMAPipe"
-  },
-  {
-    "class":"freechips.rocketchip.util.RetimeModuleAnnotation",
-    "target":"TestHarness.FPToInt"
-  },
-  {
-    "class":"freechips.rocketchip.util.RetimeModuleAnnotation",
-    "target":"TestHarness.IntToFP"
-  },
-  {
-    "class":"freechips.rocketchip.util.RetimeModuleAnnotation",
-    "target":"TestHarness.FPToFP"
-  },
-  {
-    "class":"freechips.rocketchip.util.RetimeModuleAnnotation",
-    "target":"TestHarness.FPUFMAPipe_1"
-  },
-  {
     "class":"freechips.rocketchip.util.ParamsAnnotation",
     "target":"TestHarness.RocketTile",
     "paramsClassName":"freechips.rocketchip.tile.RocketTileParams",
     "params":{
       "name":"tile",
       "dataScratchpadBytes":0,
-      "btb":{
-        "nEntries":28,
-        "nMatchBits":14,
-        "nPages":6,
-        "nRAS":6,
-        "bhtParams":{
-          "nEntries":512,
-          "counterLength":1,
-          "historyLength":8,
-          "historyBits":3
-        },
-        "updatesOutOfOrder":false
-      },
       "hartId":0,
       "icache":{
         "nSets":64,
-        "nWays":4,
+        "nWays":1,
         "rowBits":64,
         "nTLBSets":1,
-        "nTLBWays":32,
+        "nTLBWays":4,
         "nTLBBasePageSectors":4,
         "nTLBSuperpages":4,
         "cacheIdBits":0,
@@ -676,7 +614,7 @@
       "boundaryBuffers":false,
       "core":{
         "bootFreqHz":0,
-        "useVM":true,
+        "useVM":false,
         "useUser":false,
         "useSupervisor":false,
         "useDebug":true,
@@ -707,27 +645,20 @@
         "mvendorid":0,
         "mimpid":538447876,
         "mulDiv":{
-          "mulUnroll":8,
+          "mulUnroll":1,
           "divUnroll":1,
-          "mulEarlyOut":true,
-          "divEarlyOut":true,
+          "mulEarlyOut":false,
+          "divEarlyOut":false,
           "divEarlyOutGranularity":1
-        },
-        "fpu":{
-          "minFLen":32,
-          "fLen":64,
-          "divSqrt":true,
-          "sfmaLatency":3,
-          "dfmaLatency":4
         }
       },
       "dcache":{
         "nSets":64,
-        "nWays":4,
+        "nWays":1,
         "rowBits":64,
         "replacementPolicy":"random",
         "nTLBSets":1,
-        "nTLBWays":32,
+        "nTLBWays":4,
         "nTLBBasePageSectors":4,
         "nTLBSuperpages":4,
         "dataECCBytes":1,
@@ -974,42 +905,6 @@
           }
         },
         {
-          "byteOffset":"0x2080",
-          "bitOffset":0,
-          "bitWidth":1,
-          "name":"reserved",
-          "resetValue":0,
-          "accessType":"R",
-          "wrType":"None",
-          "rdAction":"None",
-          "desc":"",
-          "group":"None",
-          "groupDesc":"None",
-          "volatile":false,
-          "hasReset":true,
-          "enumerations":{
-            
-          }
-        },
-        {
-          "byteOffset":"0x2080",
-          "bitOffset":1,
-          "bitWidth":2,
-          "name":"enables_0",
-          "resetValue":0,
-          "accessType":"RW",
-          "wrType":"None",
-          "rdAction":"None",
-          "desc":"Targets 1-2. Set bits to 1 if interrupt should be enabled.",
-          "group":"enables_1",
-          "groupDesc":"Enable bits for each interrupt source for target 1. 1 bit for each interrupt source.",
-          "volatile":false,
-          "hasReset":false,
-          "enumerations":{
-            
-          }
-        },
-        {
           "byteOffset":"0x200000",
           "bitOffset":0,
           "bitWidth":2,
@@ -1055,60 +950,6 @@
           "wrType":"Some(MODIFY)",
           "rdAction":"Some(MODIFY)",
           "desc":"Claim/Complete register for Target 0. Reading this register returns the claimed interrupt number and makes it no longer pending.Writing the interrupt number back completes the interrupt.",
-          "group":"None",
-          "groupDesc":"None",
-          "volatile":true,
-          "hasReset":false,
-          "enumerations":{
-            
-          }
-        },
-        {
-          "byteOffset":"0x201000",
-          "bitOffset":0,
-          "bitWidth":2,
-          "name":"threshold_1",
-          "resetValue":0,
-          "accessType":"RW",
-          "wrType":"None",
-          "rdAction":"None",
-          "desc":"Interrupt & claim threshold for target 1. Maximum value is 3.",
-          "group":"None",
-          "groupDesc":"None",
-          "volatile":false,
-          "hasReset":false,
-          "enumerations":{
-            
-          }
-        },
-        {
-          "byteOffset":"0x201000",
-          "bitOffset":2,
-          "bitWidth":30,
-          "name":"reserved",
-          "resetValue":0,
-          "accessType":"R",
-          "wrType":"None",
-          "rdAction":"None",
-          "desc":"",
-          "group":"None",
-          "groupDesc":"None",
-          "volatile":false,
-          "hasReset":true,
-          "enumerations":{
-            
-          }
-        },
-        {
-          "byteOffset":"0x201000",
-          "bitOffset":32,
-          "bitWidth":32,
-          "name":"claim_complete_1",
-          "resetValue":0,
-          "accessType":"RW",
-          "wrType":"Some(MODIFY)",
-          "rdAction":"Some(MODIFY)",
-          "desc":"Claim/Complete register for Target 1. Reading this register returns the claimed interrupt number and makes it no longer pending.Writing the interrupt number back completes the interrupt.",
           "group":"None",
           "groupDesc":"None",
           "volatile":true,
